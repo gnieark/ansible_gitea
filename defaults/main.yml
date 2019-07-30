@@ -1,0 +1,45 @@
+---
+#mac 02:00:00:19:bb:b5
+
+gitea_dl_url: https://dl.gitea.io/gitea
+gitea_version: "1.9"
+gitea_arch: amd64
+gitea_home: /home/git
+
+#Over All
+gitea_APP_NAME: "Gitea"
+gitea_RUN_USER: "git"
+
+#Database
+
+database_DB_TYPE: mysql
+database_HOST: 192.168.x.x:3306
+database_NAME: gitea
+database_USER: gitea
+database_PASSWD: xxxxxxxx
+database_SSL_MODE: disable
+database_CHARSET: utf8
+database_PATH: /usr/local/bin/data/gitea.db
+
+#server
+
+server_SSH_DOMAIN: mygitserver.com
+server_DOMAIN: mygitserver.com
+server_HTTP_PORT: 443
+server_ROOT_URL: https://mygitserver.com/
+server_DISABLE_SSH: false
+server_SSH_PORT: 2222
+server_START_SSH_SERVER: true
+server_LFS_START_SERVER: false
+server_OFFLINE_MODE: false
+server_LETSENCRYPT_EMAIL: mymail@mail.fr
+
+#mailer
+mailer_ENABLED: true
+mailer_HOST: smtp.server.com:587
+mailer_USER: mymail
+mailer_PASSWD: xxxxxxxxxx
+mailer_FROM:  mymail@mail.fr
+
+#service
+service_NO_REPLY_ADDRESS: noreply@mail.fr

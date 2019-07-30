@@ -1,0 +1,12 @@
+[Unit]
+Description=Gitea git server
+After=network.target
+
+[Service]
+User=git
+ExecStart=/home/git/gitea web
+Restart=on-failure
+WorkingDirectory=/home/git
+
+[Install]
+WantedBy=multi-user.target

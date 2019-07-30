@@ -1,0 +1,72 @@
+---
+
+- name: install git package
+  apt:
+    name: ['git']
+    state: latest
+
+- name: "Create Gitea user"
+  user:
+    name: git
+    comment: "Gitea user"
+    home: "/home/git"
+    shell: "/bin/false"
+
+- name: "Create config and data directory"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: git
+  with_items:
+    - "/home/git"
+    - "/home/git/data"
+    - "/var/log/gitea"
+    - "/home/git/custom"
+    - "/home/git/custom/conf"
+    - "/home/git/custom/https"
+    - "/home/git/custom/mailer"
+    - "/home/git/indexers"
+
+- name: "Check gitea version"
+  shell: "set -eo pipefail; /home/git/gitea -v | cut -d' ' -f 3"
+  register: gitea_active_version
+  changed_when: false
+  failed_when: false
+
+- name: "Download the binary"
+  get_url:
+    url: "{{ gitea_dl_url }}/{{ gitea_version }}/gitea-{{ gitea_version }}-linux-{{ gitea_arch }}"
+    dest: /home/git/gitea
+    owner: root
+    group: root
+    mode: 0755
+    force: true
+  #notify: "Restart gitea"
+  when:  gitea_active_version.stdout != gitea_version
+
+- name: "Give gitea binary capability to bind all ports"
+  capabilities:
+    path: /home/git/gitea
+    capability: cap_net_bind_service=+ep
+    state: present
+
+- name: "Configure gitea"
+  template:
+    src: gitea.ini
+    dest: /home/git/custom/conf/app.ini
+    owner: git
+    mode: 0600
+  notify: "Restart gitea"
+
+- name: "Setup systemd service"
+  template:
+    src: gitea.service
+    dest: /lib/systemd/system/gitea.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - "Reload systemd"
+    - "Restart gitea"
+
+
