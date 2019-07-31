@@ -2,7 +2,13 @@
 #mac 02:00:00:19:bb:b5
 
 gitea_dl_url: https://dl.gitea.io/gitea
-gitea_version: "1.9"
+
+#part of the download url:
+gitea_version: "1.9" 
+
+#indicated at the bottom of your gitea. (let blank on the first install):
+gitea_version_full : "1.9.0+rc2-21-g9fbb89805" 
+
 gitea_arch: amd64
 gitea_home: /home/git
 

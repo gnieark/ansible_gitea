@@ -41,8 +41,8 @@
     group: root
     mode: 0755
     force: true
-  #notify: "Restart gitea"
-  when:  gitea_active_version.stdout != gitea_version
+  notify: "Restart gitea"
+  when:  gitea_active_version.stdout != gitea_version_full
 
 - name: "Give gitea binary capability to bind all ports"
   capabilities:
