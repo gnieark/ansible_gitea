@@ -1,8 +1,8 @@
-# Ansible rôle: Gitea
+# Ansible role: Gitea
 
-Gitea front (no reverse proxy) with embeded let's Encrypt acme use.
+Gitea  (front no reverse proxy) with use of embeded let's Encrypt acme.
 
-In our case, we uses Gitea with a mariadb database witch isn't on the same server. This role doesnot install mariadb.
+In our case, we uses Gitea with a mariadb database witch isn't on the same server. This role does not install mariadb.
 
 On templates/gitea.ini file 
 
@@ -15,3 +15,6 @@ On templates/gitea.ini file
     SECRET_KEY     = xdD1yrkDWNq6LNqTx3bfa3kWOLv8Ew0HOCDzb2QfsJLVpsrcOoPjCA7G9bhTUsVv
 
 Delete them the first time you launch Gitea. It will generate others token / keys.
+
+Edit the defaults/main.yml file to set your own values.
+
